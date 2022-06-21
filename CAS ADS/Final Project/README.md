@@ -24,5 +24,15 @@ A hand full car images from other car datasets having bounding box information w
 ### 2.1.3	Semi supervised labelling
 In semi supervised labelling, the trained model was iteratively run-on new videos and classified images with cars having high confidence were saved. These images were then verified and re-labelled for output labels and bounding boxes. The re-labelled images were then added back to the input data set to improve the training accuracy, and the model was re-trained. This resulted in an increase of overall accuracy of the model. 
 
-# 3	Training the CNN model
+## 3	Training the CNN model
 All labelled images for training were added in the data directory, with images having cars in 'data\c' subdirectory and those without cars in 'data\n' subdirectory. An index CSV file contained the relative link to the image directory and the bounding box dimensions. For images with cars, the points with upper left corner and bottom right corner of the bounding boxes were stored in the index file. For images with no car, zeros were stored for bounding box points. For training the model, this file was loaded in data a frame and an additional label field was calculated for class label.
+
+## 4 Convolutional Neural Network model
+A simple model is defined with i=5 blocks of convolutional layers each having 2i filters and Relu activation, batch normalization and Max pooling 2D. In the end its flattened and two dense layers of size 256 and 64 were added respectively. 
+
+## 5	The YOLO Implementation
+The ‘You Only Look Once’ or YOLO algorithm sees the entire image and requires only a single forward propagation to detect objects on run-time. In this algorithm, a grid is placed on the image and then a single neural network is applied to the entire image. This is an overlap in successive images, both horizontally and vertically to cater for split cars by the grid slicing which was kept as 25% of image height and length by default. This outputs the image classification and localization for each cell of the grid. Hence for each grid cell, there is a Y label. 
+
+## 6	Conclusions
+In this project, Car detection with 99% accuracy and localization with 80% IoU was achieved. The data was collected from scratch and was region specific. YOLO algorithm was designed to make predictions in real-time. 
+The algorithm was able to make accurate predictions of cars. However, there were few wrong predictions, long vehicles such as trucks were not detected and road signs were sometimes wrongly detected as car. This is because, the data used was limited. With more data, other vehicles such as bicycle, motorcycle and buses, the project can be further improved and used as crucial part of self-driving vehicle along with other specialized autonomous functions. 
